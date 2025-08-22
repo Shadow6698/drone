@@ -1,0 +1,21 @@
+local Players = game:GetService("Players")
+local player = Players.LocalPlayer
+local char = player.Character or player.CharacterAdded:Wait()
+local humanoidRoot = char:WaitForChild("HumanoidRootPart")
+
+-- Objeto de destino
+local spawn = workspace.WorkspaceCom["001_Drone"]["001_DroneSpawn"]
+
+-- Salvar posição atual
+local oldPos = humanoidRoot.Position
+
+-- Teleportar pro DroneSpawn
+if spawn and spawn:IsA("BasePart") then
+    humanoidRoot.CFrame = spawn.CFrame + Vector3.new(0, 5, 0)
+end
+
+-- Esperar 3 segundos
+task.wait(3)
+
+-- Voltar para a posição antiga, mas 20 studs acima
+humanoidRoot.CFrame = CFrame.new(oldPos + Vector3.new(0, 20, 0))
